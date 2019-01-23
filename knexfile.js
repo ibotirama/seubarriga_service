@@ -4,9 +4,9 @@ module.exports = {
         version: '9.6',
         connection: {
             host: 'localhost',
-            user: 'postgres',
-            password: 'postgres',
-            database: 'barriga'
+            user: 'seu_barriga',
+            password: 'barrigapass',
+            database: 'seu_barriga_db'
         },
         debug: true,
         pool: {
