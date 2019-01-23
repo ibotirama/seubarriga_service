@@ -11,7 +11,7 @@ test('Deve listar todos os usuários do sistema', () => {
         })
 })
 
-test('Deve inserir um novo usuario com nome Walter White.', (req, res) => {
+test('Deve inserir um novo usuario com nome Walter White.', () => {
     return request(app).post('/users')
         .send({ name : 'Walter White', mail: mail, password: 'anger'})
         .then( (res) => {
