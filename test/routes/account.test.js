@@ -68,8 +68,9 @@ test('Deve apagar uma conta.', () => {
 })
 
 test('Não deve inserir conta sem nome', () => {
-    return request(app).post(`${MAIN_ROUTE}`).send({user_id: user.id}, ['*'])
-                .then((res) => {
+    return request(app).post(`${MAIN_ROUTE}`)
+                .send({user_id: user.id})
+                .catch((res) => {
                     expect(res.status).toBe(400)
                     expect(res.body.error).toBe('Nome é um atributo obrigatório.')
                 })
