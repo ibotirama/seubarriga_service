@@ -3,7 +3,7 @@ const app = require('../../src/app')
 
 const mail = `${Date.now()}@mail.com`
 
-test('Deve listar todos os usuários do sistema', () => {
+test('Shall list all users', () => {
     return request(app).get('/users')
         .then((res) => {
             expect(res.status).toBe(200)
@@ -11,49 +11,54 @@ test('Deve listar todos os usuários do sistema', () => {
         })
 })
 
-test('Deve inserir um novo usuario com nome Walter White.', () => {
+test('Shall insert an user with name Walter White.', () => {
     return request(app).post('/users')
         .send({ name : 'Walter White', mail: mail, password: 'anger'})
         .then( (res) => {
             expect(res.status).toBe(201)
             expect(res.body.name).toBe('Walter White')
+            expect(res.body).not.toHaveProperty('password')
         })
 })
 
-test('Não deve inserir um usuario sem nome', () => {
+test('Shall insert the user with password encrypted.', () => {
+    
+})
+
+test('Shall not insert an user without name.', () => {
     return request(app).post('/users')
         .send({ mail : 'mrwhite@mail.com', password: 'anger' })
         .then( res => {
             expect(res.status).toBe(400)
-            expect(res.body.error).toBe('Nome é um atributo obrigatório.')
+            expect(res.body.error).toBe('Name is required.')
         })
 })
 
-test('Não deve inserir um usuario sem email.', async () => {
+test('Shall not insert an user without email.', async () => {
     const result = await request(app).post('/users')
         .send({ name : 'Walter White', password: 'anger' })
         
         expect(result.status).toBe(400)
-        expect(result.body.error).toBe('Mail é um atributo obrigatório.')
+        expect(result.body.error).toBe('Mail is required.')
 })
 
-test('Não deve inserir um usuario sem senha.', (done) => {
+test('Shall not insert an user without password.', (done) => {
     request(app).post('/users')
         .send({ name : 'Walter White', mail: 'mrwhite@mail.com' })
         .then( result => {
             expect(result.status).toBe(400)
-            expect(result.body.error).toBe('Password é um atributo obrigatório.')
+            expect(result.body.error).toBe('Password is required.')
             done()
         })
         .catch(err => done.fail(err))
         
 })
 
-test('Não deve inserir um usuario com email já existente.', () => {
+test('Shall not insert a duplicated email.', () => {
     return request(app).post('/users')
         .send({ name : 'Walter White', mail: mail, password: 'anger' })
         .then( result => {
             expect(result.status).toBe(400)
-            expect(result.body.error).toBe('Já existe um usuário com esse mail.')
+            expect(result.body.error).toBe('This email already exists in the database.')
         })        
 })
