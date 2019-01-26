@@ -8,7 +8,7 @@ const knexLogger = require('knex-logger')
 app.db = knex(knexFile.test)
 app.use(knexLogger(app.db))
 
-consign({ cwd: 'src', verbose: true })
+consign({ cwd: 'src', verbose: false })
     .include('./config/middlewares.js')
     .then('./services')
     .then('./routes')
