@@ -42,3 +42,13 @@ test('Must not access a protected route without a token.', () => {
       expect(res.status).toBe(401);
     });  
 });
+
+test('Users must be created using singnup route.', () => {
+  return request(app).post('/auth/signup')
+    .send({ name: 'Walter White', mail: `${Date.now()}@mail.com`, password: '123456' })
+    .then((result) => {
+      expect(result.status).toBe(201);
+      expect(result.body).toHaveProperty('mail');
+      expect(result.body).not.toHaveProperty('passoword');
+    });
+});
