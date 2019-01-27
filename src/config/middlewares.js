@@ -1,7 +1,7 @@
-const bodyParser = require('body-parser')
-//const knexLogger = require('knex-logger')
+const bodyParser = require('body-parser');
+// const knexLogger = require('knex-logger')
 
-module.exports = (app) =>{
-    app.use(bodyParser.json())
-    //app.use(knexLogger(app.db))
-}
+module.exports = (app) => {
+  app.use(bodyParser.json());
+  // app.use(knexLogger(app.db))
+};

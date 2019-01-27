@@ -1,30 +1,32 @@
 module.exports = (app) => {
-    const save = async (account) => {
-        if (!account.name){
-            return { error: 'Nome é um atributo obrigatório.' }
-        }
-        return app.db('accounts').insert(account, '*')
+  const save = async (account) => {
+    if (!account.name) {
+      return { error: 'Nome é um atributo obrigatório.' };
     }
+    return app.db('accounts').insert(account, '*');
+  };
 
-    const findAll = () => {
-        return app.db('accounts').select()
-    }
-    
-    const find = (filter) => {
-        return app.db('accounts').where(filter).first()
-    }
+  const findAll = () => {
+    return app.db('accounts').select();
+  };
 
-    const update = (id, account) => {
-        return app.db('accounts')
-            .where({ id })
-            .update(account, '*')
-    }
+  const find = (filter) => {
+    return app.db('accounts').where(filter).first();
+  };
 
-    const remove = (id) => {
-        return app.db('accounts')
-            .where({id })
-            .del()
-    }
+  const update = (id, account) => {
+    return app.db('accounts')
+      .where({ id })
+      .update(account, '*');
+  };
 
-    return { save, findAll, find, update, remove }
-}
+  const remove = (id) => {
+    return app.db('accounts')
+      .where({ id })
+      .del();
+  };
+
+  return {
+    save, findAll, find, update, remove,
+  };
+};
