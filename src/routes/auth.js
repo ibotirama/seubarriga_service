@@ -1,6 +1,6 @@
 const jwt = require('jwt-simple');
 const bcrypt = require('bcrypt-nodejs');
-const ValidationErrror = require('../errors/ValidationError')
+const ValidationErrror = require('../errors/ValidationError');
 
 // FIXME: Move it to a file that it's in .gitignore
 const secret = 'Segredo!';
@@ -9,7 +9,7 @@ module.exports = (app) => {
   const signin = (req, res, next) => {
     app.services.user.findOne({ mail: req.body.mail })
       .then((user) => {
-        if (!user) throw new ValidationErrror('User or password invalid.')
+        if (!user) throw new ValidationErrror('User or password invalid.');
         if (bcrypt.compareSync(req.body.password, user.password)) {
           const payload = {
             id: user.id,

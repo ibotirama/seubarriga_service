@@ -33,7 +33,7 @@ module.exports = (app) => {
 
   const remove = (req, res, next) => {
     app.services.account.remove(req.params.id)
-      .then((result) => {
+      .then(() => {
         res.status(204).send();
       })
       .catch((err) => { next(err); });

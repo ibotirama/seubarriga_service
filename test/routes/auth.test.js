@@ -40,7 +40,7 @@ test('Must not access a protected route without a token.', () => {
   return request(app).get('/users')
     .then((res) => {
       expect(res.status).toBe(401);
-    });  
+    });
 });
 
 test('Users must be created using singnup route.', () => {
