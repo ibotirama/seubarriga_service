@@ -9,7 +9,7 @@ module.exports = (app) => {
   const signin = (req, res, next) => {
     app.services.user.findOne({ mail: req.body.mail })
       .then((user) => {
-        if (!user) throw new ValidationErrror('User or password invalida.')
+        if (!user) throw new ValidationErrror('User or password invalid.')
         if (bcrypt.compareSync(req.body.password, user.password)) {
           const payload = {
             id: user.id,
@@ -17,7 +17,7 @@ module.exports = (app) => {
             mail: user.mail,
           };
           const token = jwt.encode(payload, secret);
-          res.status(200).json(token);
+          res.status(200).json({ token });
         } else throw new ValidationErrror('User or password invalid.');
       })
       .catch((err) => { next(err); });
